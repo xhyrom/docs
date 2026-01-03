@@ -1,3 +1,12 @@
 {
-  "pages": ["sniff"]
+  "pages": [
+    "beamline",
+    "e4mc-retro",
+    "feedo-rss",
+    "hatus",
+    "revanced-patches",
+    "transiq",
+    "waki",
+    "zed-discord-presence"
+  ]
 }

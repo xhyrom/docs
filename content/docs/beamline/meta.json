@@ -1,0 +1,6 @@
+{
+  "title": "Beamline",
+  "description": "Addon mod for Create that expands its display link system with multiplexing",
+  "icon": "Blocks",
+  "root": true
+}
