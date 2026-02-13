@@ -1,18 +1,21 @@
 ---
-title: Quick Start
-description: Your first document
-icon: Rocket
+title: Introduction
+description: Discord Rich Presence extension for Zed
 ---
 
-Welcome to the docs! You can start writing documents in `/content/docs`.
+**Zed Discord Presence** is an extension for the [Zed](https://zed.dev) editor that brings [Discord Rich Presence](https://discord.com/developers/docs/rich-presence/how-to) support to your coding sessions.
 
-## What is Next?
+Currently, this extension utilizes the Language Server Protocol (LSP) as a bridge to communicate with Discord. While this is a workaround, a complete rewrite using Zed's native extension capabilities is planned for the future.
+
+## Features
+
+- **Rich Presence**: Display your current file, workspace, and language on Discord.
+- **Customizable**: Configure what information is shown using placeholders.
+- **Idle Detection**: Automatically change status when you are away.
+- **Git Integration**: Show a button linking to your repository.
+- **WSL Support**: Bridge connection from WSL to Windows Discord client.
 
 <Cards>
-  <Card title="Learn more about Next.js" href="https://nextjs.org/docs" />
-  <Card title="Learn more about Fumadocs" href="https://fumadocs.dev" />
+  <Card title="Installation" href="./zed-discord-presence/installation" />
+  <Card title="Configuration" href="./zed-discord-presence/configuration" />
 </Cards>
-
-```ts twoslash
-console.log("Hello World");
-```

@@ -1,0 +1,39 @@
+---
+title: Development
+description: Building and contributing to ReVanced Patches
+---
+
+This repository follows the standard ReVanced Patches template structure. If you want to build these patches from source or contribute, follow the steps below.
+
+## Building
+
+You can build the patches using Gradle.
+
+1.  **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/xhyrom/revanced-patches
+    cd revanced-patches
+    ```
+
+2.  **Build with Gradle:**
+
+    The `buildAndroid` task is used to build the patches for Android.
+
+    ```bash
+    ./gradlew buildAndroid
+    ```
+
+## Release Workflow
+
+The repository uses semantic versioning and automated workflows for releases:
+
+-   **Development**: Changes are made in feature branches and merged into `dev`.
+-   **Release**: The `dev` branch is merged into `main` for releases.
+-   **Automation**: GitHub Actions automatically handle the release process, generating changelogs and updating versions when changes are pushed to `dev` or `main`.
+
+## License
+
+This project is licensed under the **GPL v3**.
+
+You are free to copy, distribute, and modify the patches as long as you track changes and keep the source open under the same license.

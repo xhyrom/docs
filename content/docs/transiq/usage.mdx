@@ -1,0 +1,54 @@
+---
+title: Usage
+description: Accessing and contributing GTFS data
+---
+
+## Accessing Data
+
+All mirrored GTFS files are publicly accessible via the Transiq CDN.
+
+<div className="api-endpoint">
+  <span className="api-method">GET</span>
+  <span className="api-path">https://transiq.xhyrom.dev/gtfs/:country_code/:feed_id.zip</span>
+</div>
+
+**Example Usage:**
+
+To access the IDS BK regional buses data from Slovakia:
+`https://transiq.xhyrom.dev/gtfs/sk/ids-bk_regional.zip`
+
+## Contributing Feeds
+
+Transiq is designed to be extensible. You can add new GTFS feeds by submitting a pull request.
+
+1.  **Create a Definition File:**
+    Navigate to the `feed` directory and create a new TypeScript file in the appropriate country folder (e.g., `feed/sk/new-feed.ts`).
+
+2.  **Implement the Interface:**
+    Use the following structure to define the feed metadata and source logic:
+
+    ```typescript
+    import type { Feed, FileSource } from "@feeds/types";
+
+    export default {
+      id: "unique-id",
+      name: "Human Readable Name",
+      license: {
+        type: "CC BY 4.0",
+        url: "https://license-url.example",
+        attribution: "Agency Name",
+        from: "https://source-website.example",
+      },
+      getLatestSource: async (): Promise<FileSource> => {
+        // Logic to retrieve the latest source URL
+        return {
+          type: "url", // or "google_drive"
+          url: "https://agency.com/gtfs.zip",
+        };
+      },
+    } satisfies Feed;
+    ```
+
+### Automated Updates
+
+The system utilizes GitHub Actions to automatically check for updates, download fresh data, and publish it daily. The processed files are stored in the [`gtfs`](https://github.com/xhyrom/transiq/tree/gtfs) branch of the repository.

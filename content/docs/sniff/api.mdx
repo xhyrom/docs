@@ -1,0 +1,83 @@
+---
+title: API Reference
+description: Sniff API endpoints
+---
+
+## Get App Details (All Channels)
+
+Returns details for all available channels for the specified package.
+
+<div className="api-endpoint">
+  <span className="api-method">GET</span>
+  <span className="api-path">/v1/details/:package_name</span>
+</div>
+
+**Response Headers:**
+
+- `X-Available-Channels`: Comma-separated list of available channels for the app.
+
+## Get App Details (Specific Channel)
+
+Returns details for a specific channel (`stable`, `beta`, or `alpha`) if available.
+
+<div className="api-endpoint">
+  <span className="api-method">GET</span>
+  <span className="api-path">/v1/details/:package_name/:channel</span>
+</div>
+
+**Path Parameters:**
+
+- `package_name`: The package identifier (e.g., `com.discord`).
+- `channel`: One of `stable`, `beta`, `alpha`.
+
+**Response:**
+
+```json
+{
+  "success": true,
+  "data": {
+    "stable": {
+      // ... app details
+    },
+    "beta": {
+      // ... app details
+    }
+  },
+  "error": null
+}
+```
+
+## Get Download URL
+
+Retrieves the download URL for a specific version of an app from a particular channel.
+
+<div className="api-endpoint">
+  <span className="api-method">GET</span>
+  <span className="api-path">/v1/download/:package_name/:channel/:version_code</span>
+</div>
+
+**Path Parameters:**
+
+- `package_name`: The package identifier (e.g., `com.discord`).
+- `channel`: Release channel (`stable`, `beta`, or `alpha`).
+- `version_code`: The specific Android version code (integer).
+
+**Response:**
+
+```json
+{
+  "success": true,
+  "data": [
+    "https://play.googleapis.com/download/by-token/download?token=...",
+    [
+      // Split APKs / Configs
+      [
+        "config.arm64_v8a",
+        "https://play.googleapis.com/download/by-token/download?token=..."
+      ]
+    ],
+    [] // OBBs if any
+  ],
+  "error": null
+}
+```

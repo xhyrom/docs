@@ -1,0 +1,20 @@
+---
+title: Deployment
+description: Deploying Sniff to Cloudflare Workers
+---
+
+Sniff is designed to be deployed as a **Cloudflare Worker**, providing global distribution and low-latency access to the API.
+
+## Environment Variables
+
+To deploy Sniff, you need to configure the following environment variables in your Cloudflare Worker:
+
+| Variable | Description |
+| :--- | :--- |
+| `DEVICE_NAME` | Device identifier for Google Play API |
+| `STABLE_EMAIL` | Email for stable track access |
+| `STABLE_AAS_TOKEN` | Authentication token for stable track |
+| `BETA_EMAIL` | Email enrolled in beta programs |
+| `BETA_AAS_TOKEN` | Authentication token for beta access |
+| `ALPHA_EMAIL` | Email enrolled in alpha programs |
+| `ALPHA_AAS_TOKEN` | Authentication token for alpha access |

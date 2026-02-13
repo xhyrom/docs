@@ -1,0 +1,87 @@
+---
+title: Configuration
+description: Customize your presence
+---
+
+You can customize the presence appearance, state, and behavior by modifying your Zed settings. Open settings via `zed: open settings` (JSON).
+
+The configuration resides under `lsp.discord_presence.initialization_options`.
+
+## Basic Options
+
+| Option | Description | Default |
+| :--- | :--- | :--- |
+| `state` | The second line of text. | `"Working on {filename}:{line_number}"` |
+| `details` | The first line of text. | `"In {workspace}"` |
+| `large_image` | URL for the large asset. | `"{base_icons_url}/{language:lo}.png"` |
+| `large_text` | Tooltip for the large asset. | `"{language:u}"` |
+| `small_image` | URL for the small asset. | `"{base_icons_url}/zed.png"` |
+| `small_text` | Tooltip for the small asset. | `"Zed"` |
+| `git_integration` | Show "Open Repository" button. | `true` |
+
+## Placeholders
+
+You can use dynamic placeholders in your string configurations:
+
+- `{filename}`: Current file name (e.g., `main.rs`)
+- `{workspace}`: Workspace name
+- `{language}`: Programming language
+- `{line_number}`: Current line number
+- `{git_branch}`: Current Git branch
+- `{file_size}`: Size of the current file
+- `{directory_name}`: Name of parent directory
+
+### Modifiers
+- `:u`: Capitalize first letter (e.g., `{language:u}`)
+- `:lo`: Lowercase (e.g., `{language:lo}`)
+
+## Example Configuration
+
+```json
+{
+  "lsp": {
+    "discord_presence": {
+      "initialization_options": {
+        "state": "Hacking on {filename}",
+        "details": "Building {workspace}",
+        "idle": {
+          "timeout": 300,
+          "action": "change_activity",
+          "state": "Taking a break",
+          "small_text": "Zzz..."
+        },
+        "languages": {
+            "rust": {
+                "state": "Fighting the borrow checker",
+                "large_image": "https://example.com/ferris.png"
+            }
+        }
+      }
+    }
+  }
+}
+```
+
+## Idle Settings
+
+Configure behavior when you are inactive.
+
+```json
+"idle": {
+  "timeout": 300, // Seconds
+  "action": "change_activity", // or "clear_activity"
+  "state": "Idling",
+  "details": "In Zed"
+}
+```
+
+## Exclusion Rules
+
+Disable presence for specific paths.
+
+```json
+"rules": {
+  "mode": "blacklist", // or "whitelist"
+  "paths": ["/home/user/secret-project"]
+}
+```

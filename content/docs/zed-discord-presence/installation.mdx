@@ -1,0 +1,89 @@
+---
+title: Installation
+description: How to install and set up Zed Discord Presence
+---
+
+## Requirements
+
+Before installing, ensure you have **Rust** installed on your system.
+The easiest way to get [Rust](https://rust-lang.org) is by using [rustup](https://rustup.rs).
+
+## Standard Installation
+
+The extension is available directly through Zed's extension manager.
+
+1. Open Zed.
+2. Open the command palette (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> or <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>).
+3. Type `zed: extensions` and search for "Discord Presence".
+4. Click install.
+
+## Development Installation
+
+If you want to contribute or use the latest unreleased version:
+
+1. Clone the repository: `git clone https://github.com/xhyrom/zed-discord-presence`
+2. Open Zed's command palette.
+3. Select `zed: install dev extension`.
+4. Choose the directory where you cloned the repository.
+
+## WSL Configuration
+
+If you are running Zed within Windows Subsystem for Linux (WSL), the extension cannot directly access the Discord IPC socket running on Windows. You need to bridge this connection.
+
+<Steps>
+  <Step>
+    ### Install npiperelay on Windows
+    Download [npiperelay](https://github.com/jstarks/npiperelay/releases), extract the `.zip`, and place `npiperelay.exe` in a accessible path, e.g., `C:/npiperelay`.
+  </Step>
+
+  <Step>
+    ### Install socat on WSL
+    - Arch: `yay -S socat`
+    - Ubuntu/Debian: `sudo apt-get install socat`
+  </Step>
+
+  <Step>
+    ### Configure Systemd (if needed)
+    Run `echo $XDG_RUNTIME_DIR`. It should return a path like `/run/user/1000`. If it is empty, enable systemd in `/etc/wsl.conf`:
+    
+    ```ini
+    [boot]
+    systemd=true
+    ```
+    Then restart WSL.
+  </Step>
+
+  <Step>
+    ### Create Bridge Script
+    Create a script at `~/scripts/discord-ipc-bridge.sh`:
+
+    ```bash
+    #!/bin/bash
+    SOCKET_PATH="${XDG_RUNTIME_DIR}/discord-ipc-0"
+
+    # Deletes the existing socket file if it exists
+    rm -f "$SOCKET_PATH"
+
+    socat UNIX-LISTEN:"$SOCKET_PATH",fork \
+      EXEC:"/mnt/c/npiperelay/npiperelay.exe -ep -s //./pipe/discord-ipc-0",nofork
+    ```
+
+    Make it executable: `chmod +x ~/scripts/discord-ipc-bridge.sh`
+  </Step>
+
+  <Step>
+    ### Run the Bridge
+    Run the script in the background:
+    ```bash
+    ~/scripts/discord-ipc-bridge.sh &
+    ```
+    
+    To automate this, add the following to your `.bashrc` or `.zshrc`:
+
+    ```bash
+    if ! pgrep -f "discord-ipc-bridge" > /dev/null; then
+      ~/scripts/discord-ipc-bridge.sh &
+    fi
+    ```
+  </Step>
+</Steps>

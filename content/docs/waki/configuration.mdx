@@ -1,0 +1,43 @@
+---
+title: Configuration
+description: Configuring Waki environment variables
+---
+
+Waki relies on environment variables (secrets) stored in your Cloudflare Worker to function. You can set these via the Cloudflare Dashboard or using the `wrangler` CLI.
+
+## Environment Variables
+
+| Variable | Description |
+| :--- | :--- |
+| `API_TOKEN` | A secure token (UUID v4 recommended) used to authenticate requests to your proxy. |
+| `PROVIDERS` | A JSON array string defining the WakaTime instances to forward data to. |
+| `MAIN_PROVIDER` | The identifier of the primary WakaTime instance used for retrieving user data (e.g., stats, dashboard). |
+
+## Setting Secrets via CLI
+
+You can securely upload your configuration using Wrangler:
+
+```bash
+wrangler secret put API_TOKEN
+wrangler secret put PROVIDERS
+wrangler secret put MAIN_PROVIDER
+```
+
+## Example Configuration
+
+For `PROVIDERS`, the JSON structure allows you to define multiple endpoints.
+
+```json
+[
+  {
+    "url": "https://wakatime.com/api/v1",
+    "api_key": "waka_..."
+  },
+  {
+    "url": "https://wakapi.dev/api/v1",
+    "api_key": "wakapi_..."
+  }
+]
+```
+
+This configuration would forward every heartbeat sent to Waki to both wakatime.com and wakapi.dev.

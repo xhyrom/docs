@@ -1,0 +1,5 @@
+{
+  "title": "Waki",
+  "pages": ["index", "deployment", "configuration"],
+  "root": true
+}

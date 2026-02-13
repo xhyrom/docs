@@ -1,0 +1,5 @@
+{
+  "title": "Sniff",
+  "pages": ["index", "api", "deployment"],
+  "root": true
+}

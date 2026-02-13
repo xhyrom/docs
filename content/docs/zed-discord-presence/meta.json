@@ -1,7 +1,5 @@
 {
   "title": "Zed Discord Presence",
-  "description": "Extension for Zed that adds support for discord rich presence",
-  "icon": "Blocks",
-  "root": true,
-  "pages": ["---Introduction---", "index", "what"]
+  "pages": ["index", "installation", "configuration"],
+  "root": true
 }
